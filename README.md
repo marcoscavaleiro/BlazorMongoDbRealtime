@@ -12,7 +12,7 @@ Create a colletion "raceresults"
 To teste run db.raceresulta.insert({ "Server":"test", "Track": "Test Track"})
 # Change the connections string and database name:
 At this time, the connection string is hardcoded in "BlazorMongoDbRealtimeDBContext.cs" inside BlazorMongoDbRealtime.Shared project.
-
+```c#
  public BlazorMongoDbRealtimeDBContext()
         {
             //TODO: change mongoDB connectionstring
@@ -20,6 +20,6 @@ At this time, the connection string is hardcoded in "BlazorMongoDbRealtimeDBCont
             //TODO: change database to configurantion file.
             _mongoDatabase = client.GetDatabase("test");
         }
-
+```
 
 
