@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.452
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorMongoDbRealtime.Server", "BlazorMongoDbRealtime.Server\BlazorMongoDbRealtime.Server.csproj", "{46448A90-A636-4B54-A0EC-504C6665B85D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorMongoDbRealtime.Client", "BlazorMongoDbRealtime.Client\BlazorMongoDbRealtime.Client.csproj", "{3CC7128E-D9C4-4905-A632-3942CFBB0195}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorMongoDbRealtime.Shared", "BlazorMongoDbRealtime.Shared\BlazorMongoDbRealtime.Shared.csproj", "{19B5CAD3-CD93-43AD-A75C-8434766D71B4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{46448A90-A636-4B54-A0EC-504C6665B85D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46448A90-A636-4B54-A0EC-504C6665B85D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46448A90-A636-4B54-A0EC-504C6665B85D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46448A90-A636-4B54-A0EC-504C6665B85D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CC7128E-D9C4-4905-A632-3942CFBB0195}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CC7128E-D9C4-4905-A632-3942CFBB0195}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CC7128E-D9C4-4905-A632-3942CFBB0195}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CC7128E-D9C4-4905-A632-3942CFBB0195}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19B5CAD3-CD93-43AD-A75C-8434766D71B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19B5CAD3-CD93-43AD-A75C-8434766D71B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19B5CAD3-CD93-43AD-A75C-8434766D71B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19B5CAD3-CD93-43AD-A75C-8434766D71B4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {21D2D29E-75DF-48BC-8962-F1B477A064CD}
+	EndGlobalSection
+EndGlobal

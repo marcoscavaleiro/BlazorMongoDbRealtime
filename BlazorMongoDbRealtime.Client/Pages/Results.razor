@@ -1,0 +1,126 @@
+﻿@page "/fetchresults"
+@using BlazorMongoDbRealtime.Shared.Models
+
+@inject HttpClient Http
+<h1>
+    Race Results
+</h1>
+<h3>CRUD operation with Blazor(self hosted) using MongoDB. Live data using mongoDB change streams</h3>
+<br />
+<div>
+    <div style="float:right">
+        <button class="btn btn-primary" onclick="@AddRaceResults">Add Race Results</button>
+        <button class="btn btn-primary" onclick="@GetChanges">Live data</button>
+    </div>
+</div>
+<br />
+<br />
+@if (rrList == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class='table'>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Server</th>
+                <th>Track</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var race in rrList)
+            {
+                <tr>
+                    <td>@race.Id</td>
+                    <td>@race.Server</td>
+                    <td>@race.Track</td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+    if (isAdd)
+    {
+        <div class="modal" tabindex="-1" style="display:block" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">@modalTitle</h3>
+                        <button type="button" class="close" onclick="@closeModal">
+                            <span aria-hidden="true">X</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="Name" class="control-label">Server</label>
+                                <input for="Name" class="form-control" bind="@raceResults.Server" />
+                            </div>
+                            <div class="form-group">
+                                <label for="Name" class="control-label">Track</label>
+                                <input for="Name" class="form-control" bind="@raceResults.Track" />
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-block btn-success" onclick="@(async () => await SaveRaceResults())" data-dismiss="modal">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+
+}
+@functions {
+    protected List<RaceResults> rrList;
+    protected RaceResults raceResults;
+    protected string modalTitle { get; set; }
+    protected Boolean isDelete = false;
+    protected Boolean isAdd = false;
+    protected override async Task OnInitAsync()
+    {
+        await GetRaceResults();
+
+    }
+    protected async Task GetRaceResults()
+    {
+        rrList = await Http.GetJsonAsync<List<RaceResults>>("api/RaceResults/Index");
+    }
+    protected void AddRaceResults()
+    {
+        raceResults = new RaceResults();
+        this.modalTitle = "Add Race Results";
+        this.isAdd = true;
+    }
+    protected async Task SaveRaceResults()
+    {
+
+
+        await Http.SendJsonAsync(HttpMethod.Post, "api/RaceResults", raceResults);
+
+
+        this.isAdd = false;
+        await GetRaceResults();
+    }
+    protected async Task GetChanges()
+    {
+        while (true)
+        {
+            raceResults = await Http.GetJsonAsync<RaceResults>("api/RaceResults/GetChanges");
+            rrList.Add(raceResults);
+            StateHasChanged();
+        }
+
+
+    }
+
+    protected void closeModal()
+    {
+        this.isAdd = false;
+        this.isDelete = false;
+    }
+}
