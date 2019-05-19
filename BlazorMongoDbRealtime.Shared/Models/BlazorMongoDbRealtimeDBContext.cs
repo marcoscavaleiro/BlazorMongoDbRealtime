@@ -10,7 +10,9 @@ namespace BlazorMongoDbRealtime.Shared.Models
         private readonly IMongoDatabase _mongoDatabase;
         public BlazorMongoDbRealtimeDBContext()
         {
+            //TODO: change mongoDB connectionstring
             var client = new MongoClient("mongodb://DESKTOP-0VJPPTT:27017,DESKTOP-0VJPPTT:27018,DESKTOP-0VJPPTT:27019?replicaSet=rs");
+            //TODO: change database to configurantion file.
             _mongoDatabase = client.GetDatabase("test");
         }
         public IMongoCollection<RaceResults> RaceResults
