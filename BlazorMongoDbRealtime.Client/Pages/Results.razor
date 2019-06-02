@@ -6,11 +6,12 @@
     Race Results
 </h1>
 <h3>CRUD operation with Blazor(self hosted) using MongoDB. Live data using mongoDB change streams</h3>
+<h4>To see working, open the Live Race results in a new window. Put the the windows side by side,then add a new record in this 
+    page or via mongodb shell</h4>
 <br />
 <div>
     <div style="float:right">
         <button class="btn btn-primary" onclick="@AddRaceResults">Add Race Results</button>
-        <button class="btn btn-primary" onclick="@GetChanges">Live data</button>
     </div>
 </div>
 <br />
@@ -106,18 +107,7 @@ else
         this.isAdd = false;
         await GetRaceResults();
     }
-    protected async Task GetChanges()
-    {
-        while (true)
-        {
-            raceResults = await Http.GetJsonAsync<RaceResults>("api/RaceResults/GetChanges");
-            rrList.Add(raceResults);
-            StateHasChanged();
-        }
-
-
-    }
-
+   
     protected void closeModal()
     {
         this.isAdd = false;

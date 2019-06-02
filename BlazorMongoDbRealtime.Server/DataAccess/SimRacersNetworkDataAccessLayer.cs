@@ -11,14 +11,18 @@ namespace BlazorMongoDbRealtime.Server.DataAccess
 {
     public class BlazorMongoDbRealtimeDataAccessLayer
     {
-        BlazorMongoDbRealtimeDBContext db = new BlazorMongoDbRealtimeDBContext();
-        //To Get all employees details       
+        private BlazorMongoDbRealtimeDBContext _db;
+
+        public BlazorMongoDbRealtimeDataAccessLayer(BlazorMongoDbRealtimeDBContext db)
+        {
+            _db = db;
+        }
         public List<RaceResults> GetAllRaceResults()
         {
             try
             {
 
-                return db.RaceResults.Find(_ => true).ToList();
+                return _db.RaceResults.Find(_ => true).ToList();
             }
             catch
             {
@@ -30,20 +34,20 @@ namespace BlazorMongoDbRealtime.Server.DataAccess
         {
             try
             {
-                db.RaceResults.InsertOne(raceResults);
+                _db.RaceResults.InsertOne(raceResults);
             }
             catch
             {
                 throw;
             }
         }
-        //Get the details of a particular employee      
+        //Get the details of a particular race result      
         public RaceResults GetRaceResultsData(string id)
         {
             try
             {
                 FilterDefinition<RaceResults> filterRaceResultsData = Builders<RaceResults>.Filter.Eq("Id", id);
-                return db.RaceResults.Find(filterRaceResultsData).FirstOrDefault();
+                return _db.RaceResults.Find(filterRaceResultsData).FirstOrDefault();
             }
             catch
             {
@@ -55,20 +59,20 @@ namespace BlazorMongoDbRealtime.Server.DataAccess
         {
             try
             {
-                db.RaceResults.ReplaceOne(filter: g => g.Id == raceResults.Id, replacement: raceResults);
+                _db.RaceResults.ReplaceOne(filter: g => g.Id == raceResults.Id, replacement: raceResults);
             }
             catch
             {
                 throw;
             }
         }
-        //To Delete the record of a particular employee      
+        //To Delete the record of a particular race      
         public void DeleteRaceResults(string id)
         {
             try
             {
                 FilterDefinition<RaceResults> raceResultsData = Builders<RaceResults>.Filter.Eq("Id", id);
-                db.RaceResults.DeleteOne(raceResultsData);
+                _db.RaceResults.DeleteOne(raceResultsData);
             }
             catch
             {
@@ -82,7 +86,7 @@ namespace BlazorMongoDbRealtime.Server.DataAccess
             var result = new RaceResults();
             var options = new ChangeStreamOptions { FullDocument = ChangeStreamFullDocumentOption.UpdateLookup };
 
-            var changeStream = db.RaceResults.Watch().ToEnumerable().GetEnumerator();
+            var changeStream = _db.RaceResults.Watch().ToEnumerable().GetEnumerator();
             changeStream.MoveNext();
             var next = changeStream.Current.FullDocument;
             return next;

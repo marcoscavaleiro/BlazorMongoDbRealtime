@@ -1,3 +1,5 @@
+using BlazorMongoDbRealtime.Server.DataAccess;
+using BlazorMongoDbRealtime.Shared.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -20,9 +22,10 @@ namespace BlazorMongoDbRealtime.Server
                 opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
                     new[] { "application/octet-stream" });
             });
+            services.AddSingleton<BlazorMongoDbRealtimeDBContext>();
+            services.AddScoped<BlazorMongoDbRealtimeDataAccessLayer>();
 
-           
-           
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

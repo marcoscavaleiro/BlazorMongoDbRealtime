@@ -16,20 +16,23 @@ namespace BlazorMongoDbRealtime.Server.Controllers
 
     public class RaceResultsController : Controller
     {
-        BlazorMongoDbRealtimeDataAccessLayer objSimRaceResults = new BlazorMongoDbRealtimeDataAccessLayer();
-
+        private BlazorMongoDbRealtimeDataAccessLayer _objSimRaceResults;
+        public RaceResultsController(BlazorMongoDbRealtimeDataAccessLayer objSimRaceResults)
+        {
+            _objSimRaceResults = objSimRaceResults;
+        }
         [HttpGet("[action]")]
         public IEnumerable<RaceResults> Index()
         {
 
-            return objSimRaceResults.GetAllRaceResults();
+            return _objSimRaceResults.GetAllRaceResults();
         }
         [HttpPost]
 
         public void Post([FromBody] RaceResults raceResults)
         {
 
-            objSimRaceResults.AddRaceresults(raceResults);
+            _objSimRaceResults.AddRaceresults(raceResults);
 
         }
 
@@ -38,7 +41,7 @@ namespace BlazorMongoDbRealtime.Server.Controllers
         {
             while (true)
             {
-                return objSimRaceResults.GetChanges();
+                return _objSimRaceResults.GetChanges();
             }
         }
 

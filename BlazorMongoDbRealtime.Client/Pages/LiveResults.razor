@@ -1,0 +1,55 @@
+﻿@page "/fetchliveresults"
+@using BlazorMongoDbRealtime.Shared.Models
+
+@inject HttpClient Http
+<h1>
+    Race Results
+</h1>
+<h3>this page will automatically update when a new record is entered, this page only show the adds records</h3>
+<br />
+<br />
+@if (rrList == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class='table'>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Server</th>
+                <th>Track</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var race in rrList)
+            {
+                <tr>
+                    <td>@race.Id</td>
+                    <td>@race.Server</td>
+                    <td>@race.Track</td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+ 
+
+
+}
+@functions {
+    protected List<RaceResults> rrList=new List<RaceResults>();
+    protected RaceResults raceResults=new RaceResults();
+    protected override async Task OnInitAsync()
+    {
+         while (true)
+        {
+            raceResults = await Http.GetJsonAsync<RaceResults>("api/RaceResults/GetChanges");
+            rrList.Add(raceResults);
+            StateHasChanged();
+        }
+
+    }
+}
